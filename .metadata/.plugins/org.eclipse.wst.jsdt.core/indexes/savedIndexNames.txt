@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+/Users/daopham/projects/wed/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3495200887.index
+1133848610.index
+4201480460.index
+3837109985.index
+169668078.index

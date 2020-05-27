@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+/Users/daopham/projects/wed/.metadata/.plugins/org.eclipse.jdt.core
+1517987751.index
+169668078.index
