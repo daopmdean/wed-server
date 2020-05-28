@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.Student;
-import vn.wed.server.service.StudentRepository;
 
 @Component
 public class StudentRepositoryImpl implements StudentRepository {
@@ -14,6 +13,9 @@ public class StudentRepositoryImpl implements StudentRepository {
 	
 	public StudentRepositoryImpl() {
 		students = new ArrayList<Student>();
+		students.add(new Student("Alex", "alex@gmail.com"));
+		students.add(new Student("Tom", "tom@gmail.com"));
+		students.add(new Student("Helen", "helen@gmail.com"));
 	}
 
 	@Override
@@ -29,5 +31,10 @@ public class StudentRepositoryImpl implements StudentRepository {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Student> getStudents() {
+		return students;
 	}
 }
