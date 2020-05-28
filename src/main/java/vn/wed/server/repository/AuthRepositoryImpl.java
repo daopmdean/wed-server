@@ -6,35 +6,37 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.User;
+import vn.wed.server.service.AuthRepository;
 
 @Component
 public class AuthRepositoryImpl implements AuthRepository {
-	private List<User> users;
-	
-	public AuthRepositoryImpl() {
-		users = new ArrayList<User>();
-		users.add(new User("daopm", "daopm@gmail.com", "password"));
-		users.add(new User("dean", "dean@gmail.com", "password"));
-		users.add(new User("admin", "admin@gmail.com", "admin"));
-	}
-	
+	private List<User> users = new ArrayList<User>();
+
 	@Override
-	public User login(String username, String password) {
-		boolean validUsername;
+	public User getUserByEmail(String email) {
 		for (User user : users) {
-			validUsername = user.getUsername().equalsIgnoreCase(username); 
-			if (validUsername) {
-				if (user.getPassword().equals(password)) {
-					return user;
-				}
+			if (user.getEmail().equalsIgnoreCase(email)) {
+				return user;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public boolean register(User user) {
-		return users.add(user);
+	public boolean createUser(User userToCreate) {
+		boolean foundExistUser = false;
+		for (User user : users) {
+			if (user.getEmail().equalsIgnoreCase(userToCreate.getEmail())) {
+				foundExistUser = true;
+				break;
+			}
+		}
+		
+		if (foundExistUser) {
+			return false;
+		}
+		
+		users.add(userToCreate);
+		return true;
 	}
-
 }

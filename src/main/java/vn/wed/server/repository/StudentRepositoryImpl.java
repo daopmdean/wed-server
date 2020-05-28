@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.Student;
+import vn.wed.server.service.StudentRepository;
 
 @Component
 public class StudentRepositoryImpl implements StudentRepository {
