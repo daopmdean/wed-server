@@ -8,29 +8,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.wed.server.entity.Student;
-import vn.wed.server.service.StudentRepository;
 import vn.wed.server.service.StudentService;
 
 @RestController
 public class StudentController {
 	
 	@Autowired
-	private StudentRepository repo;
-	
+	private StudentService service;
+
 	@GetMapping("/student")
 	public Student getStudent(
 		@RequestParam(value = "name", defaultValue = "World") String name
 	) {
-		StudentService service = new StudentService(this.repo);
-		Student student = service.getByName(name);
+		Student student = this.service.getByName(name);
 		return student;
 	}
 	
 	@PostMapping("/student")
 	public boolean createStudent(@RequestBody CreateStudentRequestBody body) {
 		Student student = new Student(body.getName(), body.getEmail());
-		StudentService service = new StudentService(this.repo);
-		return service.create(student);
+		return this.service.create(student);
 	}
 }
 

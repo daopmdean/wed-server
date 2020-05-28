@@ -1,14 +1,15 @@
 package vn.wed.server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import vn.wed.server.entity.Student;
 
+@Component
 public class StudentService {
+	@Autowired
 	private StudentRepository repo;
 	
-	public StudentService(StudentRepository repo) {
-		this.repo = repo;
-	}
-
 	public boolean create(Student student) {
 		return this.repo.create(student);
 	}
