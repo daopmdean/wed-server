@@ -9,14 +9,14 @@ import vn.wed.server.repository.AuthRepository;
 
 @Service
 public class AuthService {
-	
+
 	@Autowired
 	private AuthRepository repo;
-	
+
 	public User login(String username, String password) {
 		return repo.login(username, password);
 	}
-	
+
 	public boolean register(User user) {
 		return repo.register(user);
 	}
