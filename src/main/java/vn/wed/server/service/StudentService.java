@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.Student;
-import vn.wed.server.repository.StudentRepository;
 
 @Component
 public class StudentService {

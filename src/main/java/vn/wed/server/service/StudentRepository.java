@@ -1,4 +1,4 @@
-package vn.wed.server.repository;
+package vn.wed.server.service;
 
 import java.util.List;
 

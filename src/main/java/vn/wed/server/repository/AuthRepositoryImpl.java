@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.User;
+import vn.wed.server.service.AuthRepository;
 
 @Component
 public class AuthRepositoryImpl implements AuthRepository {
@@ -13,28 +14,38 @@ public class AuthRepositoryImpl implements AuthRepository {
 	
 	public AuthRepositoryImpl() {
 		users = new ArrayList<User>();
-		users.add(new User("daopm", "daopm@gmail.com", "password"));
-		users.add(new User("dean", "dean@gmail.com", "password"));
-		users.add(new User("admin", "admin@gmail.com", "admin"));
+		
+		User user1 = new User("daopm@gmail.com", "passwordabc");
+		user1.setPasswordSalt("abc");
+		User user2 = new User("alex@gmail.com", "mypasserf");
+		user2.setPasswordSalt("erf");
+		User user3 = new User("admin@gmail.com", "adminwed");
+		user3.setPasswordSalt("wed");
+		
+		users.add(user1);
+		users.add(user2);
+		users.add(user3);
 	}
-	
+
 	@Override
-	public User login(String username, String password) {
-		boolean validUsername;
+	public User getUserWithEmail(String email) {
 		for (User user : users) {
-			validUsername = user.getUsername().equalsIgnoreCase(username); 
-			if (validUsername) {
-				if (user.getPassword().equals(password)) {
-					return user;
-				}
+			if (user.getEmail().equalsIgnoreCase(email)) {
+				return user;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public boolean register(User user) {
-		return users.add(user);
+	public boolean createUser(User userInfo) {
+		for (User user : users) {
+			if (user.getEmail().equalsIgnoreCase(userInfo.getEmail())) {
+				return false;
+			}
+		}
+		
+		return users.add(userInfo);
 	}
 
 }

@@ -2,22 +2,23 @@ package vn.wed.server.entity;
 
 public class User {
 	private int id;
-	private String username;
 	private String email;
 	private String password;
+	private String passwordSalt;
+	private String fullname;
 
 	public User() {
 	}
-
-	public User(String username, String email) {
-		this.username = username;
-		this.email = email;
-	}
 	
-	public User(String username, String email, String password) {
-		this.username = username;
+	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
+	}
+	
+	public User(String email, String password, String fullname) {
+		this.email = email;
+		this.password = password;
+		this.fullname = fullname;
 	}
 
 	public int getId() {
@@ -27,15 +28,6 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -51,5 +43,23 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getPasswordSalt() {
+		return passwordSalt;
+	}
+
+	public void setPasswordSalt(String passwordSalt) {
+		this.passwordSalt = passwordSalt;
+	}
+	
+	
 
 }
