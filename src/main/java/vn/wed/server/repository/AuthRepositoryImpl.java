@@ -15,12 +15,12 @@ public class AuthRepositoryImpl implements AuthRepository {
 	public AuthRepositoryImpl() {
 		users = new ArrayList<User>();
 		
-		User user1 = new User("daopm@gmail.com", "passwordabc");
-		user1.setPasswordSalt("abc");
-		User user2 = new User("alex@gmail.com", "mypasserf");
-		user2.setPasswordSalt("erf");
-		User user3 = new User("admin@gmail.com", "adminwed");
-		user3.setPasswordSalt("wed");
+		User user1 = new User("daopm@gmail.com", "passworde$$eB3b3c1");
+		user1.setPasswordSalt("e$$eB3b3c1");
+		User user2 = new User("alex@gmail.com", "mypass%Ebe$&D&1B");
+		user2.setPasswordSalt("%Ebe$&D&1B");
+		User user3 = new User("admin@gmail.com", "adminaD#$&ECdbE");
+		user3.setPasswordSalt("aD#$&ECdbE");
 		
 		users.add(user1);
 		users.add(user2);
@@ -28,7 +28,7 @@ public class AuthRepositoryImpl implements AuthRepository {
 	}
 
 	@Override
-	public User getUserWithEmail(String email) {
+	public User getUserByEmail(String email) {
 		for (User user : users) {
 			if (user.getEmail().equalsIgnoreCase(email)) {
 				return user;
