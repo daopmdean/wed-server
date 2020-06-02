@@ -7,6 +7,8 @@ import java.util.function.Function;
 
 import javax.validation.valueextraction.ExtractedValue;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,11 +16,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 	private static String SECRET_KEY = "secret";
 
-	public static String genToken(Map<String, Object> claims, int expInMin) {
+	public static String genToken(Map<String, Object> claims, String email, int expInMin) {
 		long currentTime = System.currentTimeMillis();
 		int expInMs = expInMin * 60 * 1000;
 
-		return Jwts.builder().setClaims(claims).setIssuedAt(new Date(currentTime))
+		return Jwts.builder().setClaims(claims).setSubject(email).setIssuedAt(new Date(currentTime))
 				.setExpiration(new Date(currentTime + expInMs)).signWith(SignatureAlgorithm.HS256, SECRET_KEY)
 				.compact();
 	}
@@ -41,6 +43,10 @@ public class JwtUtil {
 	private static Date extractExpiration(String token) {
 		return extractClaim(token, Claims::getExpiration);
 	}
+	
+	public static String extractEmail(String token) {
+		return extractClaim(token, Claims::getSubject);
+	}
 
 	public static <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
 		final Claims claims = extractAllClaims(token);
@@ -49,5 +55,12 @@ public class JwtUtil {
 
 	private static Claims extractAllClaims(String token) {
 		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+	}
+	
+	public static Boolean validateToken(String token, UserDetails userDetails) {
+		Date date = extractExpiration(token);
+		boolean isExpired = date.before(new Date());
+		final String email = extractEmail(token);
+		return (email.equals(userDetails.getUsername()) && !isExpired);
 	}
 }

@@ -1,6 +1,9 @@
 package vn.wed.server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +19,23 @@ public class AuthController {
 
 	@Autowired
 	private AuthService service;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager; 
 
 	@PostMapping("/login")
-	public LoginResponse login(@RequestBody User loginInfo) throws Exception {
+	public LoginResponse login(@RequestBody User loginInfo) {
 		try {
 			User user = service.login(loginInfo.getEmail(), loginInfo.getPassword());
+			
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+			);
+
 			String token = service.genToken(user.getEmail());
 			return LoginResponse.success(token);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return LoginResponse.error(e.getMessage());
 		}
 	}

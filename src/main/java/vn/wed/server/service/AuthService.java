@@ -37,12 +37,11 @@ public class AuthService {
 	public String genToken(String userEmail) {
 		Map<String, Object> claims = new HashMap<String, Object>();
 		
-		claims.put("email", userEmail);
 		claims.put("key1", "value1");
 		claims.put("key2", "value2");
 		claims.put("key3", "value3");
 		
-		return JwtUtil.genToken(claims, 60);
+		return JwtUtil.genToken(claims, userEmail, 60);
 	}
 	
 	public Map<String, Object> validate(String token) throws Exception {
