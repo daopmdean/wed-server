@@ -22,6 +22,7 @@ public class Util {
         for (int i = 0; i < length; i++) {
             passwordSalt += randomChar[random.nextInt(max)];
         }
+        
         return passwordSalt;
 	}
 

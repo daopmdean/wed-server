@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.validation.valueextraction.ExtractedValue;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,8 +35,17 @@ public class JwtUtil {
 		claims = extractAllClaims(token);
 		return new HashMap<>(claims);
 	}
+	
+	public static boolean isTokenValid(String token) {
+		try {
+			Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 
-	private static Date extractExpiration(String token) {
+	public static Date extractExpiration(String token) {
 		return extractClaim(token, Claims::getExpiration);
 	}
 	
@@ -53,14 +58,8 @@ public class JwtUtil {
 		return claimsResolver.apply(claims);
 	}
 
-	private static Claims extractAllClaims(String token) {
+	public static Claims extractAllClaims(String token) {
 		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 	}
 	
-	public static Boolean validateToken(String token, UserDetails userDetails) {
-		Date date = extractExpiration(token);
-		boolean isExpired = date.before(new Date());
-		final String email = extractEmail(token);
-		return (email.equals(userDetails.getUsername()) && !isExpired);
-	}
 }

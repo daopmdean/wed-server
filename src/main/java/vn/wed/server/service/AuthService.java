@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import vn.wed.server.entity.User;
+import vn.wed.server.util.AppException;
+import vn.wed.server.util.ErrorCode;
 import vn.wed.server.util.JwtUtil;
 import vn.wed.server.util.Util;
 
@@ -21,14 +22,14 @@ public class AuthService {
 		User user = repo.getUserByEmail(email);
 		
 		if (user == null) {
-			throw new Exception("Invalid email or password");
+			throw new AppException(ErrorCode.BAD_REQUEST, "Invalid email or password");
 		}
 		
 		String hassedPassword = Util.hash(password, user.getPasswordSalt());
 		boolean isPasswordValid = user.getPassword().equals(hassedPassword); 
 		
 		if (!isPasswordValid) {
-			throw new Exception("Invalid email or password");
+			throw new AppException(ErrorCode.BAD_REQUEST, "Invalid email or password");
 		}
 		
 		return user;
@@ -39,7 +40,6 @@ public class AuthService {
 		
 		claims.put("key1", "value1");
 		claims.put("key2", "value2");
-		claims.put("key3", "value3");
 		
 		return JwtUtil.genToken(claims, userEmail, 60);
 	}

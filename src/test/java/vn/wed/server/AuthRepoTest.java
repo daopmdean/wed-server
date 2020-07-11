@@ -17,7 +17,7 @@ public class AuthRepoTest {
 	
 	@Test
 	void canRegisterUserFromRepo() {
-		User user = new User("hoho@gmail.com", "passabc", "Hoho Max");
+		User user = new User("hoho@gmail.com", "passabc", "Hoho", "Max");
 		user.setPasswordSalt("abc");
 		
 		assertThat(repo.createUser(user)).isTrue();
@@ -25,7 +25,7 @@ public class AuthRepoTest {
 	
 	@Test
 	void createDuplicatedEmailUser() {
-		User user = new User("alex@gmail.com", "passdA333BeE%@", "Alex Max");
+		User user = new User("alex@gmail.com", "passdA333BeE%@", "Alex", "Max");
 		user.setPasswordSalt("dA333BeE%@");
 		
 		assertThat(repo.createUser(user)).isFalse();
@@ -33,7 +33,7 @@ public class AuthRepoTest {
 	
 	@Test
 	void canFindUserByEmail() {
-		User user = new User("toby@gmail.com", "passaccB3%55c#", "Toby Max");
+		User user = new User("toby@gmail.com", "passaccB3%55c#", "Toby", "Max");
 		user.setPasswordSalt("accB3%55c#");
 		repo.createUser(user);
 		
@@ -42,7 +42,6 @@ public class AuthRepoTest {
 		assertThat(userFromRepo.getEmail()).isEqualTo("toby@gmail.com");
 		assertThat(userFromRepo.getPassword()).isEqualTo("passaccB3%55c#");
 		assertThat(userFromRepo.getPasswordSalt()).isEqualTo("accB3%55c#");
-		assertThat(userFromRepo.getFullname()).isEqualTo("Toby Max");
 	}
 	
 	@Test
