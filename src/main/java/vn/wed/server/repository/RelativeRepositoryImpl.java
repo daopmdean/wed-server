@@ -37,4 +37,9 @@ public class RelativeRepositoryImpl implements RelativeRepository {
 		ralatives.add(DataFeeding.phopeFather());
 		ralatives.add(DataFeeding.phopeMother());
 	}
+
+	@Override
+	public List<Relative> getRelatives() {
+		return ralatives;
+	}
 }

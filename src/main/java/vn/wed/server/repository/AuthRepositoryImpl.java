@@ -1,13 +1,11 @@
 package vn.wed.server.repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import vn.wed.server.entity.User;
-import vn.wed.server.entity.Wedding;
 import vn.wed.server.service.AuthRepository;
 
 @Component

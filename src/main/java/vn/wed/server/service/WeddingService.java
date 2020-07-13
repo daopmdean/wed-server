@@ -11,18 +11,18 @@ import vn.wed.server.entity.Wedding;
 public class WeddingService {
 	
 	@Autowired
-	private WeddingRepository repo;
+	private WeddingRepository weddingRepo;
 	
 	public boolean create(Wedding wedding) {
-		return repo.createWedding(wedding);
+		return weddingRepo.createWedding(wedding);
 	}
 	
 	public List<Wedding> getWeddingsByEmail(String email) {
-		return repo.getWeddingsByEmail(email);
+		return weddingRepo.getWeddingsByEmail(email);
 	}
 	
 	public List<Wedding> getWeddings() {
-		return repo.getWeddings();
+		return weddingRepo.getWeddings();
 	}
 }
 

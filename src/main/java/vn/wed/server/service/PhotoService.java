@@ -25,6 +25,10 @@ public class PhotoService {
 		return photoRepo.createPhoto(photo);
 	}
 	
+	public Photo getPhotoById(int id) {
+		return photoRepo.getPhotoById(id);
+	}
+	
 	public Photo getPhotoByTitle(String title) {
 		return photoRepo.getPhotoByTitle(title);
 	}

@@ -18,6 +18,6 @@ public class InvitationService {
 	}
 	
 	public List<Invitation> getInvitations() {
-		return invitationRepo.getAllInvitations(); 
+		return invitationRepo.getAllInvitations();
 	}
 }
